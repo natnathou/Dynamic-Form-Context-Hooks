@@ -149,6 +149,15 @@ const formField = {
                 error       : "You have to enter a text"
             },
             {
+                type        : "big_text",
+                id          : null,
+                required    : true,
+                name        : "comments",
+                initialValue: "",
+                autocomplete: "off",
+                error       : "You have to enter a text"
+            },
+            {
                 type        : "list",
                 label       : false,
                 textLabel   : null,

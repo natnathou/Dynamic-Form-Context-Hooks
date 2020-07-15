@@ -1,5 +1,5 @@
 import React from "react"
-import Form from "../Form/Form"
+import Form from "../Form/FormHooks"
 import buttonField from "../Form/json/buttonField"
 import formField from "../Form/json/formField"
 import "./App.css"

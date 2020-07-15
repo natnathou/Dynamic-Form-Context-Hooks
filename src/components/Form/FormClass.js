@@ -733,12 +733,13 @@ class Form extends React.Component {
         formSend(this.props.nameForm, this.context)
     }
 
-    handKeyPress=(event)=>{
-        if(event.key==="Enter"){
-            this.handSubmit(event)
+    handKeyPress=(event)=>{       
+
+        if(event.key==="Enter" && event.target.tagName !== "TEXTAREA"){
+            this.handSubmit(event)            
         }
         else{
-            this.handleChange(event)
+            event.stopPropagation()
         }
     }
 
