@@ -131,9 +131,6 @@ const Form =(props)=> {
             }
 
             
-            initializePropsValue(props.formField)
-            //value props initilization
-
 
             const initializeValue = json => json.map(async data => {
                 switch(data.type){
@@ -173,10 +170,19 @@ const Form =(props)=> {
                 }
             })
             
-                 //value form initialization
-            initializeValue(props.formField)
-            //value props initilization
-            setstate(1)
+            const init= async ()=>{
+
+                //value form initialization
+                await initializeValue(props.formField)
+                //value props initilization
+                await initializePropsValue(props.formField)
+                //value props initilization
+
+                setstate(1)    
+                
+            }
+
+            init()
     
             }
             
@@ -258,7 +264,86 @@ const Form =(props)=> {
     }
     }, [state, props.formField,props.nameForm, context.formValueReducer, context.formPropsReducer])
     
+
+    // we initialize one more time error props, to set error false if the form is autocomplete
+
+    useEffect(() => {
+        if(state>=2){
+            const initializeErrorProp = json => json.map(async data => {
+            switch (data.type) {
+                case "file":
+                    if(context.formPropsReducer[props.nameForm][data.name][`error`] && context.formValueReducer[props.nameForm][data.name][0] !== "" && context.formPropsReducer[props.nameForm][data.name]["required"]){        
+                        await context.formPropsReducer.formPropsModifyAction({[data.name]: {error: false}}, props.nameForm)
+                     }                
+                    break
+                case "text":
+ 
+                    if(context.formPropsReducer[props.nameForm][data.name][`error`] && context.formValueReducer[props.nameForm][data.name] !== "" && context.formPropsReducer[props.nameForm][data.name]["required"]){                        
+                        await context.formPropsReducer.formPropsModifyAction({[data.name]: {error: false}}, props.nameForm)
+                    }                    
+                    break
+                case "email":
+ 
+                    if(context.formPropsReducer[props.nameForm][data.name][`error`] && context.formValueReducer[props.nameForm][data.name] !== "" && context.formPropsReducer[props.nameForm][data.name]["required"]){                        
+                        await context.formPropsReducer.formPropsModifyAction({[data.name]: {error: false}}, props.nameForm)
+                    }                    
+                    break
+                case "number":
+                    if(context.formPropsReducer[props.nameForm][data.name][`error`] && context.formValueReducer[props.nameForm][data.name] !== "" && context.formPropsReducer[props.nameForm][data.name]["required"]){                        
+                        await context.formPropsReducer.formPropsModifyAction({[data.name]: {error: false}}, props.nameForm)
+                    }
+                    break
+                case "tel":
+                    if(context.formPropsReducer[props.nameForm][data.name][`error`] && context.formValueReducer[props.nameForm][data.name] !== "" && context.formPropsReducer[props.nameForm][data.name]["required"]){        
+                        await context.formPropsReducer.formPropsModifyAction({[data.name]: {error: false}}, props.nameForm)
+                    }
+                    break
+                case "password":
+                    if(context.formPropsReducer[props.nameForm][data.name][`error`] && context.formValueReducer[props.nameForm][data.name] !== "" && context.formPropsReducer[props.nameForm][data.name]["required"]){                        
+                        await context.formPropsReducer.formPropsModifyAction({[data.name]: {error: false}}, props.nameForm)
+                    }
+                    break
+                case "radio":
+                    if(context.formPropsReducer[props.nameForm][data.name][`error`]){
+                        let err        = true;
+                        let checkError = () => _.toArray(context.formValueReducer[props.nameForm][data.name]).forEach((data) => {
+                            if (data) {        
+                                err = false
+                            }
+                        })
+        
+                        checkError()
+                        if(!err && context.formPropsReducer[props.nameForm][data.name][data.value]["required"]){        
+                            await context.formPropsReducer.formPropsRadioModifyPropertyAction({[data.name]: {error: false}}, props.nameForm)
+                        }        
+                    }
+                    break
+        
+                case "checkbox":
+                    if(context.formPropsReducer[props.nameForm][data.name][`error`] && !context.formValueReducer[props.nameForm][data.name] && context.formPropsReducer[props.nameForm][data.name]["required"]){                        
+                        await context.formPropsReducer.formPropsModifyAction({[data.name]: {error: false}}, props.nameForm)
+                    }
+                    break
+                case "big_text":
+                    if(context.formPropsReducer[props.nameForm][data.name][`error`] && context.formValueReducer[props.nameForm][data.name] !== "" && context.formPropsReducer[props.nameForm][data.name]["required"]){                        
+                        await context.formPropsReducer.formPropsModifyAction({[data.name]: {error: false}}, props.nameForm)
+                    }
+                    break
+                case "list":
+                    if(context.formPropsReducer[props.nameForm][data.name][`error`] && context.formValueReducer[props.nameForm][data.name] !== context.formPropsReducer[props.nameForm][data.name]["optionArray"][0]){                        
+                        await context.formPropsReducer.formPropsModifyAction({[data.name]: {error: false}}, props.nameForm)
+                    }
+                    break
+                default:
+                    break
+            }
+        })
     
+        initializeErrorProp(props.formField)
+           
+    }
+    }, [state, props.formField,props.nameForm, context.formValueReducer, context.formPropsReducer])
+     
 
     // method to display error message when the input is empty if the input is required
     const renderError = (data) => {

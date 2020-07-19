@@ -1,6 +1,5 @@
 import {formModify} from "././FormModify";
 import {radioModify} from "./RadioModify"
-import {FormSend as formSend} from "./FormSend";
 import {FormReset as formReset} from "./FormReset"
 import {formPropsInitialize} from "./FormPropsInitialize"
 import {formPropsRadioInitialize} from "./FormPropsRadioInitialize"
@@ -14,7 +13,6 @@ import {setResponseMessageError} from "./SetResponseMessageError"
 export const Actions ={
   formModify,
   radioModify,
-  formSend,
   formReset,
   formPropsInitialize,
   formPropsRadioInitialize,
