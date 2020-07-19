@@ -1,8 +1,9 @@
-import React, {useState, useContext} from 'react'
+import React, {useState, useContext, useEffect} from 'react'
+import _ from "lodash"
 import Context from "../../../state/StateContext";
 
 
-export const Button =({formField,buttonField,nameForm, formSend, formReset})=> {
+export const Button =({formField,buttonField,nameForm, formReset})=> {
 
     const context = useContext(Context)
 

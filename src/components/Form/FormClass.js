@@ -1,7 +1,6 @@
 import React from "react"
 import _ from "lodash"
 import Context from "../../state/StateContext"
-import {FormSend as formSend} from "../../state/actions/FormSend"
 import {FormReset as formReset} from "../../state/actions/FormReset"
 import Button from "./Button/Button"
 import InputTextField from "./input/InputTextField"
@@ -729,8 +728,6 @@ class Form extends React.Component {
     }
 
     handSubmit=(event)=>{
-        event.preventDefault()
-        formSend(this.props.nameForm, this.context)
     }
 
     handKeyPress=(event)=>{       
@@ -758,7 +755,6 @@ class Form extends React.Component {
                     formField={this.props.formField} 
                     buttonField={this.props.buttonField}
                     nameForm={this.props.nameForm}
-                    formSend={this.handSubmit}
                     formReset={formReset}
                 />
             </form>

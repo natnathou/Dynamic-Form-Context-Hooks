@@ -1,7 +1,6 @@
 import React, {useContext, useEffect, useState} from "react"
 import _ from "lodash"
 import Context from "../../state/StateContext"
-import {FormSend as formSend} from "../../state/actions/FormSend"
 import {FormReset as formReset} from "../../state/actions/FormReset"
 import Button from "./Button/Button"
 import InputTextField from "./input/InputTextField"
@@ -170,19 +169,15 @@ const Form =(props)=> {
                 }
             })
             
-            const init= async ()=>{
 
                 //value form initialization
-                await initializeValue(props.formField)
+                initializeValue(props.formField)
                 //value props initilization
-                await initializePropsValue(props.formField)
+                initializePropsValue(props.formField)
                 //value props initilization
 
                 setstate(1)    
                 
-            }
-
-            init()
     
             }
             
@@ -859,8 +854,6 @@ const Form =(props)=> {
     }
 
     const handSubmit=(event)=>{
-        event.preventDefault()
-        formSend(props.nameForm, context)
     }
 
     const handKeyPress=(event)=>{
